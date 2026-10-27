@@ -1,0 +1,19 @@
+services:
+  prometheus:
+    image: prom/prometheus:v3.2.1
+    volumes:
+      - ./prometheus:/etc/prometheus:ro
+    command: ['--config.file=/etc/prometheus/prometheus.yml']
+    ports: ['9090:9090']
+    extra_hosts: ['host.docker.internal:host-gateway']
+  node-exporter:
+    image: quay.io/prometheus/node-exporter:v1.9.0
+    # Keep the Compose bridge network for service-name discovery.
+    pid: host
+    command: ['--path.rootfs=/host']
+    volumes:
+      - /:/host:ro
+    ports: ['9100:9100']
+  grafana:
+    image: grafana/grafana:11.6.0
+    ports: ['3000:3000']

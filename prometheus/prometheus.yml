@@ -1,0 +1,12 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  # Example: Prometheus scrapes its own metrics inside this container.
+  - job_name: prometheus
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # TODO: Add a job for node exporter. Derive its address from Compose.
+  # TODO: Add a job for the Python script running on your host (port 8765).
+  # Consult the lab and configuration reference; choose distinct job names.
